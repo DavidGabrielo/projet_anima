@@ -75,47 +75,28 @@
         $('table').DataTable();
 
         // SELECTION DE l'id DE NIVEAU
-        function slctIdNiveau() {
+        function slctIdFonction() {
             $.ajax({
                 url: 'personnel_process.php',
                 type: 'post',
                 data: {
-                    slctIdNiveau: 'slctIdNiveau'
+                    slctIdFonction: 'slctIdFonction'
                 },
                 success: function(response) {
-                    $(".idNiveau").val(response)
+                    $(".idFonction").val(response)
                 }
             })
         }
-        slctIdNiveau();
+        slctIdFonction();
 
-        function slctIdClasse() {
-            let niveau = $(".optionNiveau").val()
-            $.ajax({
-                url: 'personnel_process.php',
-                type: 'post',
-                data: {
-                    slctIdClasse: 'slctIdClasse',
-                    niveau: niveau
-                },
-                success: function(response) {
-                    $(".idClasse").val(response)
-                }
-            })
-        }
-        slctIdClasse();
-
-
-        function getInscription() {
-            let niveau = $(".optionNiveau").val();
-            let classe = $(".idClasse").val();
+        function getPersonnel() {
+            let fonction = $(".optionFonction").val();
 
             $.ajax({
                 url: 'personnel_process.php',
                 type: 'post',
                 data: {
-                    idNiveau: niveau,
-                    idClasse: classe,
+                    idFonction: fonction,
                     slctId: "oui"
                 },
                 success: function(response) {
@@ -124,18 +105,18 @@
                 }
             })
         }
-        getInscription()
+        getPersonnel()
 
         // 
-        function getInscriptionAvecNiveau() {
-            let niveau = $(".optionNiveau").val();
+        function getPersonnelAvecFonction() {
+            let fonction = $(".optionFonction").val();
 
             $.ajax({
                 url: 'personnel_process.php',
                 type: 'post',
                 data: {
-                    idNiveau: niveau,
-                    slctIdClasseAvecNiveau: "oui"
+                    idFonction: fonction,
+                    slctIdClasseAvecFonction: "oui"
                 },
                 success: function(response) {
                     $('#orderTable').html(response);
@@ -145,65 +126,38 @@
         }
 
         // SELECTION DE NIVEAU
-        function slctNiveau() {
+        function slctFonction() {
             $.ajax({
                 url: 'personnel_process.php',
                 type: 'post',
                 data: {
-                    slctNiveau: 'slctNiveau'
+                    slctFonction: 'slctFonction'
                 },
                 success: function(response) {
-                    $('#niveauSlct').html(response);
+                    $('#fonctionSlct').html(response);
                 }
             })
         }
-        slctNiveau();
-
-        function slctClasse() {
-            let niveau = $(".optionNiveau").val();
-            $.ajax({
-                url: 'personnel_process.php',
-                type: 'post',
-                data: {
-                    slctClasse: 'slctClasse',
-                    niveau: niveau
-                },
-                success: function(response) {
-                    $('#contClasse').html(response);
-                }
-            })
-        }
-        slctClasse();
+        slctFonction();
 
         // CHANGEMENT DE NIVEAU
-        $(document).on("change", ".optionNiveau", function() {
-            let idNiveau = $(this).val()
-            $(".idNiveau").val(idNiveau)
-            slctIdClasse();
-            slctClasse();
-            getInscriptionAvecNiveau();
-        })
-
-        // CHANGER DE classe
-        $(document).on("click", ".lienClasse", function() {
-            let id = $(this).data("id")
-            $(".idClasse").val(id)
-            $(".lienClasse").removeClass('propClick')
-            $(".lienClasse").removeClass('changement')
-            $(this).addClass('propClick')
-            getInscription();
+        $(document).on("change", ".optionFonction", function() {
+            let idFonction = $(this).val()
+            $(".idFonction").val(idFonction)
+            getPersonnelAvecFonction();
         })
 
         $("#formOrder").submit(function(e) {
             e.preventDefault()
 
             // let formOrder = $("#formOrder")
-            let numero = $("#numero").val()
+            let code = $("#code").val()
             let prenom = $("#prenom").val()
             let dtns = $("#dtns").val()
             let lieuns = $("#lieuns").val()
             let adresse = $("#adresse").val()
-            if (numero != "" && prenom != "" && dtns != "" && lieuns != "" && adresse != "") {
+            let contact = $("#contact").val()
+            if (code != "" && prenom != "" && dtns != "" && lieuns != "" && adresse != "" && contact != "") {
                 var formData = new FormData(this);
                 $.ajax({
                     url: 'personnel_process_create.php',
@@ -215,12 +169,12 @@
                         if (response == "echec") {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Ce numéro d\'inscription existe déjà dans cette classe',
+                                title: 'Ce numéro de code existe déjà',
                                 showConfirmButton: true
                             })
                         } else {
                             $("#createModal").modal('hide');
-                            getInscription()
+                            getPersonnel()
                             $('#imagePreview').hide();
                             Swal.fire({
                                 icon: 'success',
@@ -228,21 +182,13 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            $("#numero").val("");
+                            $("#code").val("");
                             $("#prenom").val("");
                             $("#nom").val("");
                             $("#dtns").val("");
                             $("#lieuns").val("");
                             $("#adresse").val("");
-                            $("#pere").val("");
-                            $("#professionPere").val("");
-                            $("#contactPere").val("");
-                            $("#mere").val("");
-                            $("#professionMere").val("");
-                            $("#contactMere").val("");
-                            $("#repondant").val("");
-                            $("#professionRepondant").val("");
-                            $("#contactRepondant").val("");
+                            $("#contact").val("");
                             $("#fileInput").val("");
                         }
                     }
@@ -250,7 +196,7 @@
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Ces champs doivent être remplis : Numéro, prenom, date de naissance, lieu de naissance, adresse',
+                    title: 'Ces champs doivent être remplis : Code, prenom, date de naissance, lieu de naissance, adresse, contact',
                     showConfirmButton: true
                 })
             }
@@ -268,12 +214,13 @@
                 success: function(response) {
                     let informations = JSON.parse(response)
 
-                    $("#numeroSlct").text(informations.numero)
+                    $("#codeSlct").text(informations.code)
                     $("#prenomSlct").text(informations.prenom)
                     $("#nomSlct").text(informations.nom)
                     $("#dtnsSlct").text(informations.dtns)
                     $("#lieunsSlct").text(informations.lieuns)
                     $("#adresseSlct").text(informations.adresse)
+                    $("#contactSlct").text(informations.contact)
 
                     let photo = informations.photo;
                     if (photo != "") {
@@ -281,16 +228,6 @@
                     } else {
                         $(".contPhoto").html("<img src='photos/etudiant.png' class='photoSlct' alt='photo de létudiant'/>")
                     }
-
-                    $("#pereSlct").text(informations.pere)
-                    $("#professionPereSlct").text(informations.profession_pere)
-                    $("#contactPereSlct").text(informations.contact_pere)
-                    $("#mereSlct").text(informations.mere)
-                    $("#professionMereSlct").text(informations.profession_mere)
-                    $("#contactMereSlct").text(informations.contact_mere)
-                    $("#repondantSlct").text(informations.repondant)
-                    $("#professionRepondantSlct").text(informations.profession_repondant)
-                    $("#contactRepondantSlct").text(informations.contact_repondant)
                 }
             })
         })
@@ -312,12 +249,13 @@
                     let informations = JSON.parse(response)
 
                     $("#id").val(informations.id)
-                    $("#numeroUpdate").val(informations.numero)
+                    $("#codeUpdate").val(informations.code)
                     $("#prenomUpdate").val(informations.prenom)
                     $("#nomUpdate").val(informations.nom)
                     $("#dtnsUpdate").val(informations.dtns)
                     $("#lieunsUpdate").val(informations.lieuns)
                     $("#adresseUpdate").val(informations.adresse)
+                    $("#contactUpdate").val(informations.contact)
 
                     let photo = informations.photo;
                     if (photo != "") {
@@ -325,16 +263,6 @@
                     } else {
                         $(".contPhotoUpdate").html("<img src='photos/etudiant.png' class='photoSlct' alt='photo de létudiant'/>")
                     }
-
-                    $("#pereUpdate").val(informations.pere)
-                    $("#professionPereUpdate").val(informations.profession_pere)
-                    $("#contactPereUpdate").val(informations.contact_pere)
-                    $("#mereUpdate").val(informations.mere)
-                    $("#professionMereUpdate").val(informations.profession_mere)
-                    $("#contactMereUpdate").val(informations.contact_mere)
-                    $("#repondantUpdate").val(informations.repondant)
-                    $("#professionRepondantUpdate").val(informations.profession_repondant)
-                    $("#contactRepondantUpdate").val(informations.contact_repondant)
                 }
             })
         })
@@ -343,12 +271,13 @@
             e.preventDefault()
 
             // let formOrder = $("#formOrder")
-            let numero = $("#numeroUpdate").val()
+            let code = $("#codeUpdate").val()
             let prenom = $("#prenomUpdate").val()
             let dtns = $("#dtnsUpdate").val()
             let lieuns = $("#lieunsUpdate").val()
             let adresse = $("#adresseUpdate").val()
-            if (numero != "" && prenom != "" && dtns != "" && lieuns != "" && adresse != "") {
+            let contact = $("#contactUpdate").val()
+            if (code != "" && prenom != "" && dtns != "" && lieuns != "" && adresse != "" && contact != "") {
                 var formData = new FormData(this);
                 $.ajax({
                     url: 'personnel_process_update.php',
@@ -357,38 +286,28 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        // alert(response)
                         if (response == "echec") {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Ce numéro d\'inscription existe déjà dans cette classe',
+                                title: 'Ce code de personnel existe déjà',
                                 showConfirmButton: true
                             })
                         } else {
                             $("#updateModal").modal('hide');
-                            getInscription()
+                            getPersonnel()
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Modification réussie',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            $("#numeroUpdate").val("");
+                            $("#codeUpdate").val("");
                             $("#prenomUpdate").val("");
                             $("#nomUpdate").val("");
                             $("#dtnsUpdate").val("");
                             $("#lieunsUpdate").val("");
                             $("#adresseUpdate").val("");
-                            $("#pereUpdate").val("");
-                            $("#professionPereUpdate").val("");
-                            $("#contactPereUpdate").val("");
-                            $("#mereUpdate").val("");
-                            $("#professionMereUpdate").val("");
-                            $("#contactMereUpdate").val("");
-                            $("#repondantUpdate").val("");
-                            $("#professionRepondantUpdate").val("");
-                            $("#contactRepondantUpdate").val("");
-                            $("#fileInputUpdate").val("");
+                            $("#contactUpdate").val("");
                         }
                     }
                 })
@@ -428,7 +347,7 @@
                                     showConfirmButton: false,
                                     timer: 1500
                                 })
-                                getInscription();
+                                getPersonnel();
                             }
                         }
                     })

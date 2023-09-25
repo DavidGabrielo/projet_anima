@@ -1,9 +1,9 @@
 <?php
-// session_start();
-// if (isset($_SESSION["prenom"])) {
-// } else {
-//     header("location:../../index.php");
-// }
+session_start();
+if (isset($_SESSION["prenom"])) {
+} else {
+    header("location:../../index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classe</title>
+    <title>Personnel</title>
     <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet" />
@@ -24,8 +24,8 @@
     <?php include("../header/headerPers.php"); ?>
     <section class="container py-2">
         <div class="row">
-            <div class="col-lg-8 col-md mb-2 mx-auto">
-                <h1 class="fs-4 text-center lead text-primary">PARAMETRES DE CLASSE POUR LE NIVEAU : <span class="text-danger" id="niveauSlct"></span></h1>
+            <div class="col-lg-10 col-md mb-2 mx-auto">
+                <h1 class="fs-4 text-center lead text-primary">PARAMETRE DE PERSONNEL POUR LA FONCTION : <span class="text-danger" id="fonctionSlct"></span></h1>
             </div>
         </div>
         <div class="dropdown-divider border-warning"></div>
@@ -43,10 +43,7 @@
         <div class="dropdown-divider border-warning"></div>
         <div class="row">
             <div class="row">
-                <div class="col-md-3" id="contClasse">
-                    <h5>Chargement des classes</h5>
-                </div>
-                <div class="table-responsive col" id="orderTable">
+                <div class="table-responsive" id="orderTable">
                     <h3 class="text-success text-center">Chargement des étudiants...</h3>
                 </div>
             </div>
@@ -58,13 +55,12 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="createModalLabel">Nouveau étudiant</h1>
+                    <h1 class="modal-title fs-5" id="createModalLabel">Nouveau personnel</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" id="formOrder">
-                        <input type='number' class='idNiveau' name="niveau" hidden />
-                        <input type='number' class='idClasse' name="classe" hidden />
+                        <input type='number' class='idFonction' name="fonction" hidden />
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-1">
@@ -108,16 +104,6 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="mb-1 pt-2">
-                                    <label for="">Fonction : </label>
-                                    <select name="fonction" id="fonction">
-                                        <option value="">Rediger</option>
-                                        <option value="">Rediger</option>
-                                        <option value="">Rediger</option>
-                                        <option value="">Rediger</option>
-                                        <option value="">Rediger</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -142,8 +128,7 @@
                 <div class="modal-body">
                     <form action="" method="post" id="formOrderUpdate">
                         <input type="number" id="id" name="id" hidden />
-                        <input type='number' class='idNiveau' name="niveau" hidden />
-                        <input type='number' class='idClasse' name="classe" hidden />
+                        <input type='number' class='idFonction' name="niveau" hidden />
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-1">
@@ -170,6 +155,10 @@
                                     <input type="text" class="form-control" id="adresseUpdate" name="adresseUpdate">
                                     <label for="adresseUpdate">Adresse</label>
                                 </div>
+                                <div class="form-floating mb-1">
+                                    <input type="text" class="form-control" id="contactUpdate" name="contactUpdate">
+                                    <label for="contactUpdate">Adresse</label>
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating mb-1">
@@ -177,50 +166,6 @@
                                     <input type="file" id="fileInputUpdate" name="photo" />
                                     <img src="" id="imagePreviewUpdate" alt="Image Preview" />
                                     <span class="contPhotoUpdate"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-floating mb-1 row">
-                            <div class="col">
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="pereUpdate" name="pereUpdate">
-                                    <label for="pereUpdate">Père</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="professionPereUpdate" name="professionPereUpdate">
-                                    <label for="professionPereUpdate">Proféssion</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="contactPereUpdate" name="contactPereUpdate">
-                                    <label for="contactPereUpdate">Contact</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="mereUpdate" name="mereUpdate">
-                                    <label for="mereUpdate">Mère</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="professionMereUpdate" name="professionMereUpdate">
-                                    <label for="professionMereUpdate">Proféssion</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="contactMereUpdate" name="contactMereUpdate">
-                                    <label for="contactMereUpdate">Contact</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="repondantUpdate" name="repondantUpdate">
-                                    <label for="repondantUpdate">Répondant</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="professionRepondantUpdate" name="professionRepondantUpdate">
-                                    <label for="professionRepondantUpdate">Proféssion</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="contactRepondantUpdate" name="contactRepondantUpdate">
-                                    <label for="contactRepondantUpdate">Contact</label>
                                 </div>
                             </div>
                         </div>
@@ -265,45 +210,13 @@
                                 <div class="mb-1">
                                     <label for="">Adresse : </label> <span id="adresseSlct"></span>
                                 </div>
+                                <div class="mb-1">
+                                    <label for="">Contact : </label> <span id="contactSlct"></span>
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="mb-1">
                                     <div class="contPhoto"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-1 row">
-                            <div class="col">
-                                <div class="mb-1">
-                                    <label for="">Père : </label> <span id="pereSlct"></span>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Profession : </label> <span id="professionPereSlct"></span>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Contact : </label> <span id="contactPereSlct"></span>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-1">
-                                    <label for="">Mère : </label> <span id="mereSlct"></span>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Profession : </label> <span id="professionMereSlct"></span>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Contact : </label> <span id="contactMereSlct"></span>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-1">
-                                    <label for="">Répondant : </label> <span id="repondantSlct"></span>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Profession : </label> <span id="professionRepondantSlct"></span>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Contact : </label> <span id="contactRepondantSlct"></span>
                                 </div>
                             </div>
                         </div>

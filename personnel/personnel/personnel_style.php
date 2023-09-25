@@ -7,6 +7,10 @@
         margin-top: 10px;
     }
 
+    /* #fonctionSlct{
+        display: inline-block;
+    } */
+
     #fonction {
         padding: 10px 30px;
     }

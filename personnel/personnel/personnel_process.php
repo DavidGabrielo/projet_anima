@@ -5,106 +5,37 @@ $db = new Model();
 if (isset($_POST["slctFonction"])) {
     $tabFonction = $db->slctFonction();
     $output = "";
+
+    $output .= "<select class='optionFonction pt-2 pb-2 w-25 text-center'>";
     if (count($tabFonction) > 0) {
         for ($i = 0; $i < count($tabFonction); $i++) {
-            $output .= "<option>{$tabFonction[$i]["fonction"]}</option>";
+            $output .= "<option value='{$tabFonction[$i]["id"]}'>{$tabFonction[$i]["fonction"]}</option>";
         }
-        echo $output;
+    }
+    $output .= "</select>";
+    echo $output;
+}
+
+if (isset($_POST["slctIdFonction"])) {
+    $tabFonction = $db->slctFonction();
+    if (count($tabFonction) > 0) {
+        echo $tabFonction[0]["id"];
     } else {
         echo "";
     }
 }
 
-if (isset($_POST["slctIdNiveau"])) {
-    $tabNiveau = $db->slctNiveau();
-    if (count($tabNiveau) > 0) {
-        echo $tabNiveau[0]["id"];
-    } else {
-        echo "";
-    }
-}
-
-if (isset($_POST["slctIdClasse"])) {
-    if (isset($_POST["niveau"])) {
-        $tabClasse = $db->slctClasse($_POST["niveau"]);
-        if (count($tabClasse) > 0) {
-            echo $tabClasse[0]["id"];
-        } else {
-            echo "";
-        }
-    } else {
-        $tabNiveau = $db->slctNiveau();
-        if (count($tabNiveau) > 0) {
-            $idNiveau = $tabNiveau[0]["id"];
-
-            $tabClasse = $db->slctClasse($idNiveau);
-            if (count($tabClasse) > 0) {
-                echo $tabClasse[0]["id"];
-            } else {
-                echo "";
-            }
-        } else {
-            echo "";
-        }
-    }
-}
-
-if (isset($_POST["slctNiveau"])) {
-    $tabNiveau = $db->slctNiveau();
-    $liste = "";
-
-    $liste .= "<select class='optionNiveau pt-2 pb-2 w-25 text-center'>";
-
-    for ($i = 0; $i < count($tabNiveau); $i++) {
-        $liste .= "<option value='{$tabNiveau[$i]['id']}'>{$tabNiveau[$i]['abr']}</option>";
-    }
-    $liste .= "</select>";
-    echo $liste;
-}
-
-if (isset($_POST["slctClasse"])) {
-    $tabNiveau = $db->slctNiveau();
-    $liste = "";
-
-    if (isset($_POST["niveau"])) {
-        // SELECTION DE classe
-        $tabClasse = $db->slctClasse($_POST["niveau"]);
-        if (count($tabClasse) > 0) {
-            $liste .= "<div class='pt-2 pb-2 w-25 text-center'>";
-
-            for ($i = 0; $i < count($tabClasse); $i++) {
-                $liste .= "<a href='#' class='lienClasse changement' data-id='{$tabClasse[$i]['id']}'>{$tabClasse[$i]['classe']}</a>";
-            }
-            $liste .= "</div>";
-        }
-    } elseif (count($tabNiveau) > 0) {
-        $idNiveau = $tabNiveau[0]["id"];
-
-        // SELECTION DE classe
-        $tabClasse = $db->slctClasse($idNiveau);
-        if (count($tabClasse) > 0) {
-            $liste .= "<div class='pt-2 pb-2 w-25 text-center'  aria-labelledby='dropdown04'>";
-
-            for ($i = 0; $i < count($tabClasse); $i++) {
-                $liste .= "<a href='#' class='lienClasse changement' data-id='{$tabClasse[$i]['id']}'>{$tabClasse[$i]['classe']}</a>";
-            }
-            $liste .= "</div>";
-        }
-    }
-
-    echo $liste;
-}
 
 if (isset($_POST["slctId"])) {
-    if (isset($_POST["idNiveau"]) && isset($_POST["idClasse"])) {
-        $tabInscription = $db->lectureAvecId((int)$_POST["idNiveau"], (int)$_POST["idClasse"]);
+    if (isset($_POST["idFonction"])) {
+        $tabPersonnel = $db->lectureAvecId((int)$_POST["idFonction"]);
     } else {
-        $tabInscription = $db->lectureSansId();
+        $tabPersonnel = $db->lectureSansId();
     }
     $output = "";
 
-    if ($tabInscription != "") {
-        if (count($tabInscription) > 0) {
+    if ($tabPersonnel != "") {
+        if (count($tabPersonnel) > 0) {
             $output .= "
             <table class='table table-striped'>
                 <thead>
@@ -118,12 +49,12 @@ if (isset($_POST["slctId"])) {
                 </thead>
                 <tbody>";
             $rang = 0;
-            foreach ($tabInscription as $elmInscription) {
+            foreach ($tabPersonnel as $elmInscription) {
                 $rang++;
                 $output .= "
                 <tr>
                     <th scope='col'>$rang</th>
-                    <td>$elmInscription->numero</td>
+                    <td>$elmInscription->code</td>
                     <td>$elmInscription->prenom</td>
                     <td>$elmInscription->nom</td>
                     <td>
@@ -146,21 +77,15 @@ if (isset($_POST["slctId"])) {
     echo $output;
 }
 
-if (isset($_POST["slctIdClasseAvecNiveau"])) {
-    if (isset($_POST["idNiveau"])) {
-        $tabClasse = $db->slctClasse($_POST["idNiveau"]);
-        if (count($tabClasse) > 0) {
-            $idClasse = $tabClasse[0]["id"];
-            $tabInscription = $db->lectureAvecId((int)$_POST["idNiveau"], (int)$idClasse);
-        } else {
-            $tabInscription = [];
-        }
+if (isset($_POST["slctIdClasseAvecFonction"])) {
+    if (isset($_POST["idFonction"])) {
+        $tabPersonnel = $db->lectureAvecId((int)$_POST["idFonction"]);
     } else {
-        $tabInscription = $db->lectureSansId();
+        $tabPersonnel = $db->lectureSansId();
     }
 
     $output = "";
-    if (count($tabInscription) > 0) {
+    if (count($tabPersonnel) > 0) {
         $output .= "
             <table class='table table-striped'>
                 <thead>
@@ -174,18 +99,18 @@ if (isset($_POST["slctIdClasseAvecNiveau"])) {
                 </thead>
                 <tbody>";
         $rang = 0;
-        foreach ($tabInscription as $elmInscription) {
+        foreach ($tabPersonnel as $elmInscription) {
             $rang++;
             $output .= "
                 <tr>
                     <th scope='col'>$rang</th>
-                    <td>$elmInscription->numero</td>
+                    <td>$elmInscription->code</td>
                     <td>$elmInscription->prenom</td>
                     <td>$elmInscription->nom</td>
                     <td>
-                        <a href=\"#\" class=\"text-primary me-2 editBtn\" title=\"Plus de details\" data-id=\"$elmInscription->id\"><i class=\"fas fa-info-circle\" data-bs-toggle='modal'  data-bs-target='#infoModal'></i></a>
+                        <a href=\"#\" class=\"text-primary me-2 infoBtn\" title=\"Plus de details\" data-id=\"$elmInscription->id\"><i class=\"fas fa-info-circle\" data-bs-toggle='modal'  data-bs-target='#infoModal'></i></a>
                         <a href=\"#\" class=\"text-primary me-2 editBtn\" title=\"Modifier\" data-id=\"$elmInscription->id\"><i class=\"fas fa-edit\" data-bs-toggle='modal'  data-bs-target='#updateModal'></i></a>
-                        <a href=\"#\" class=\"text-danger me-2 deleteBtn\" title=\"Supprimer\" data-id=\"$elmInscription->id\"><i class=\"fas fa-trash-alt\"></i></a>
+                        <a href=\"#\" class=\"text-danger me-2 deleteBtn\" title=\"Supprimer\" data-id=\"$elmInscription->id\" data-prenom=\"$elmInscription->prenom\"><i class=\"fas fa-trash-alt\"></i></a>
                     </td>
                 </tr>
             ";
@@ -212,7 +137,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 // Info pour detail de facture
 if (isset($_POST['informationId'])) {
     $informationId = $_POST['informationId'];
-    echo json_encode($db->getInfoEtudiant($informationId));
+    echo json_encode($db->getInfoPersonnel($informationId));
 }
 
 // SUPPRESSION DE FACTURE

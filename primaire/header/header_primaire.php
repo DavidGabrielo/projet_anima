@@ -17,7 +17,7 @@
                         <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                         <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                         <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                        <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                        <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                     } else {
                         if ($_GET["page"] == "niveau") {
@@ -29,7 +29,7 @@
                             <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                             <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                             <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "classe") {
                         ?>
@@ -40,7 +40,7 @@
                             <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                             <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                             <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "matières") {
                         ?>
@@ -51,7 +51,7 @@
                             <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                             <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                             <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "inscription") {
                         ?>
@@ -62,7 +62,7 @@
                             <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                             <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                             <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "ecolages") {
                         ?>
@@ -73,7 +73,7 @@
                             <li class="nav-item"><a href="#" class="nav-link text-warning">Ecolages</a></li>
                             <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                             <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "notes") {
                         ?>
@@ -84,7 +84,7 @@
                             <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                             <li class="nav-item"><a href="#" class="nav-link text-warning">Notes</a></li>
                             <li class="nav-item"><a href="../bulletin/bulletin.php?page=bulletin" class="nav-link">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "bulletin") {
                         ?>
@@ -95,7 +95,7 @@
                             <li class="nav-item"><a href="../ecolages/ecolages.php?page=ecolages" class="nav-link">Ecolages</a></li>
                             <li class="nav-item"><a href="../notes/notes.php?page=notes" class="nav-link">Notes</a></li>
                             <li class="nav-item"><a href="#" class="nav-link text-warning">Bulletin</a></li>
-                            <li class="nav-item"><a href="../../deconnection/deconnection.php" class="nav-link">Se deconnecter</a></li>
+                            <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                     <?php
                         }
                     }

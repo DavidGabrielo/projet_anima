@@ -1,9 +1,9 @@
 <?php
-// session_start();
-// if (isset($_SESSION["prenom"])) {
-// } else {
-//     header("location:../../index.php");
-// }
+session_start();
+if (isset($_SESSION["prenom"])) {
+} else {
+    header("location:../../index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

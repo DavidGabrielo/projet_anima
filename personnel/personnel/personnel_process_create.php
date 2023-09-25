@@ -1,5 +1,5 @@
 <?php
-require_once "inscription_model.php";
+require_once "personnel_model.php";
 $db = new Model();
 
 // extract($_POST);
@@ -17,8 +17,7 @@ if ($_FILES["photo"]["name"]) {
     $photo = "";
 }
 
-$annee = $db->slctAnnee();
-$retour = $db->create($_POST["numero"], $_POST["prenom"], $_POST["nom"], $_POST["dtns"], $_POST["lieuns"], $_POST["adresse"], $photo, $_POST["pere"], $_POST["professionPere"], $_POST["contactPere"], $_POST["mere"], $_POST["professionMere"], $_POST["contactMere"], $_POST["repondant"], $_POST["professionRepondant"], $_POST["contactRepondant"], (int)$_POST["niveau"], (int)$_POST["classe"], (int)$annee);
+$retour = $db->create($_POST["code"], $_POST["prenom"], $_POST["nom"], $_POST["dtns"], $_POST["lieuns"], $_POST["adresse"], $photo, $_POST["contact"], $_POST["fonction"]);
 
 if ($retour == 1) {
     if (isset($chemin)) {

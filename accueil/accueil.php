@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION["prenom"])) {
+} else {
+    header("location:../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +39,24 @@
             align-items: center;
         }
 
+        /* #cont h1 a,
+        #cont h1 span {
+            display: inline-block;
+        }
+
+        #cont h1 {
+            display: flex;
+            justify-content: space-around;
+        } */
+
+        #cont h1 span {
+            margin-right: 205px;
+        }
+
+        #cont h1 a {
+            color: yellow;
+        }
+
         #contLien {
             display: flex;
             justify-content: space-around;
@@ -47,14 +72,16 @@
 
 <body>
     <div id="cont">
-        <h1>Bienvenu cher utilisateur!</h1>
+        <h1><span>Bienvenu cher utilisateur!</span><a href="../deconnection/deconnection.php">Se déconnecter</a></h1>
         <h3>Ce logiciel vous permet de gerer les informations importantes de votre établissement scolaire</h3>
-        <h3>Vous pouvez choisir entre les deux liens ci-dessous</h3>
+        <h3>Vous pouvez choisir entre ces liens ci-dessous</h3>
+
     </div>
 
     <div id="contLien">
         <a href="../primaire/niveau/niveau.php">NIVEAU PRIMAIRE</a>
         <a href="../secondaire/niveau/niveau.php">NIVEAU SECONDAIRE</a>
+        <a href="../personnel/fonction/fonction.php">PERSONNEL</a>
     </div>
 
 </body>

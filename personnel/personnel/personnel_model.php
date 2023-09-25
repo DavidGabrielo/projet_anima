@@ -7,90 +7,47 @@ class Model extends Database
         return $this->getconnexion()->query("SELECT * FROM fonction ORDER BY id")->fetchAll();
     }
 
-    public function slctNiveau()
+    public function create(string $code, string $prenom, string $nom, string $dtns, string $lieuns, string $adresse, string $photo, string $contact, int $fonction)
     {
-        return $this->getconnexion()->query("SELECT * FROM niveau WHERE categorie = 1 ORDER BY id")->fetchAll();
-    }
-
-    public function slctClasse($idNiveau)
-    {
-        $slctClasse = $this->getconnexion()->prepare("SELECT * FROM classe WHERE categorie = 1 AND niveau = :niveau ORDER BY id");
-        $slctClasse->execute([
-            "niveau" => $idNiveau
-        ]);
-        return $slctClasse->fetchAll();
-    }
-
-    public function slctAnnee()
-    {
-        $slctAnnee = $this->getconnexion()->prepare("SELECT * FROM annee_scolaire WHERE activite = 1");
-        $slctAnnee->execute();
-        $tabAnnee = $slctAnnee->fetchAll();
-        if (count($tabAnnee) > 0) {
-            return $tabAnnee[0]["id"];
-        }
-    }
-
-    public function create(string $numero, string $prenom, string $nom, string $dtns, string $lieuns, string $adresse, string $photo, string $pere, string $professionPere, string $contactPere, string $mere, string $professionMere, string $contactMere, string $repondant, string $professionRepondant, string $contactRepondant, int $niveau, int $classe, int $annee)
-    {
-        $slctRedondance = $this->getconnexion()->prepare("SELECT * FROM inscription WHERE numero = :numero AND categorie = 1 AND niveau = :niveau AND classe = :classe AND annee = :annee");
+        $slctRedondance = $this->getconnexion()->prepare("SELECT * FROM personnel WHERE code = :code");
         $slctRedondance->execute([
-            "numero" => $numero,
-            "niveau" => $niveau,
-            "classe" => $classe,
-            "annee" => $annee
+            "code" => $code
         ]);
-        $tabClasse = $slctRedondance->fetchAll();
-        $nbRedondance = count($tabClasse);
+        $tabPersonnel = $slctRedondance->fetchAll();
+        $nbRedondance = count($tabPersonnel);
 
         if ($nbRedondance > 0) {
             return "echec";
         } else {
-            $insert = $this->getconnexion()->prepare("INSERT INTO inscription(numero, prenom, nom, dtns, lieuns, adresse, photo, pere, profession_pere, contact_pere, mere, profession_mere, contact_mere, repondant, profession_repondant, contact_repondant, categorie, niveau, classe, annee) 
-            VALUES(:numero, :prenom, :nom, :dtns, :lieuns, :adresse, :photo, :pere, :profession_pere, :contact_pere, :mere, :profession_mere, :contact_mere, :repondant, :profession_repondant, :contact_repondant, :categorie, :niveau, :classe, :annee)");
+            $insert = $this->getconnexion()->prepare("INSERT INTO personnel(code, prenom, nom, dtns, lieuns, adresse, photo, contact, fonction) 
+            VALUES(:code, :prenom, :nom, :dtns, :lieuns, :adresse, :photo, :contact, :fonction)");
 
             return $insert->execute([
-                "numero" => $numero,
+                "code" => $code,
                 "prenom" => $prenom,
                 "nom" => $nom,
                 "dtns" => $dtns,
                 "lieuns" => $lieuns,
                 "adresse" => $adresse,
                 "photo" => $photo,
-                "pere" => $pere,
-                "profession_pere" => $professionPere,
-                "contact_pere" => $contactPere,
-                "mere" => $mere,
-                "profession_mere" => $professionMere,
-                "contact_mere" => $contactMere,
-                "repondant" => $repondant,
-                "profession_repondant" => $professionRepondant,
-                "contact_repondant" => $contactRepondant,
-                "categorie" => 1,
-                "niveau" => $niveau,
-                "classe" => $classe,
-                "annee" => $annee
+                "contact" => $contact,
+                "fonction" => $fonction
             ]);
         }
     }
 
-    public function lectureAvecId(int $idNiveau, int $idClasse)
+    public function lectureAvecId(int $idFonction)
     {
-        return $this->getconnexion()->query("SELECT * FROM inscription WHERE categorie = 1 AND niveau = $idNiveau AND classe = $idClasse ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
+        return $this->getconnexion()->query("SELECT * FROM personnel WHERE fonction = $idFonction ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function lectureSansId()
     {
-        $tabNiveau = $this->slctNiveau();
-        if (count($tabNiveau) > 0) {
+        $tabFonction = $this->slctFonction();
+        if (count($tabFonction) > 0) {
             // SELECT DE L'id DE niveau
-            $idNiveau = $tabNiveau[0]["id"];
-
-            // SELECTION DE L'id DE classe
-            $tabClasse = $this->slctClasse($idNiveau);
-            $idClasse = $tabClasse[0]["id"];
-
-            return $this->getconnexion()->query("SELECT * FROM inscription WHERE categorie = 1 AND niveau = $idNiveau AND classe = $idClasse ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
+            $idFonction = $tabFonction[0]["id"];
+            return $this->getconnexion()->query("SELECT * FROM personnel WHERE fonction = $idFonction ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
         }
     }
 
@@ -106,9 +63,9 @@ class Model extends Database
         return $q->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getInfoEtudiant(int $id)
+    public function getInfoPersonnel(int $id)
     {
-        $q = $this->getconnexion()->prepare("SELECT * FROM inscription WHERE id = :id");
+        $q = $this->getconnexion()->prepare("SELECT * FROM personnel WHERE id = :id");
         $q->execute(['id' => $id]);
         return $q->fetch(PDO::FETCH_OBJ);
     }
@@ -120,18 +77,15 @@ class Model extends Database
         return $q->fetch();
     }
 
-    public function update(int $id, string $numero, string $prenom, string $nom, string $dtns, string $lieuns, string $adresse, string $photo, string $pere, string $professionPere, string $contactPere, string $mere, string $professionMere, string $contactMere, string $repondant, string $professionRepondant, string $contactRepondant, int $niveau, int $classe, int $annee)
+    public function update(int $id, string $code, string $prenom, string $nom, string $dtns, string $lieuns, string $adresse, string $photo, string $contact)
     {
         // $tabPhotoSlct = $this->getPhotoEtudiant($id);
         // $photoSlct = $tabPhotoSlct["photo"];
         // unlink("photos/" . $photoSlct);
 
-        $slctRedondance = $this->getconnexion()->prepare("SELECT * FROM inscription WHERE numero = :numero AND categorie = 1 AND niveau = :niveau AND classe = :classe AND annee = :annee AND id <> :id");
+        $slctRedondance = $this->getconnexion()->prepare("SELECT * FROM personnel WHERE code = :code  AND id <> :id");
         $slctRedondance->execute([
-            "numero" => $numero,
-            "niveau" => $niveau,
-            "classe" => $classe,
-            "annee" => $annee,
+            "code" => $code,
             "id" => $id
         ]);
         $tabClasse = $slctRedondance->fetchAll();
@@ -140,29 +94,17 @@ class Model extends Database
         if ($nbRedondance > 0) {
             return "echec";
         } else {
-            $update = $this->getconnexion()->prepare("UPDATE inscription SET numero = :numero, prenom = :prenom, nom = :nom, dtns = :dtns, lieuns = :lieuns, adresse = :adresse, photo = :photo, pere = :pere, profession_pere = :profession_pere, contact_pere = :contact_pere, mere = :mere, profession_mere = :profession_mere, contact_mere = :contact_mere, repondant = :repondant, profession_repondant = :profession_repondant, contact_repondant = :contact_repondant, categorie = :categorie, niveau = :niveau, classe = :classe, annee = :annee WHERE id = :id");
+            $update = $this->getconnexion()->prepare("UPDATE personnel SET code = :code, prenom = :prenom, nom = :nom, dtns = :dtns, lieuns = :lieuns, adresse = :adresse, photo = :photo, contact = :contact  WHERE id = :id");
 
             return $update->execute([
-                "numero" => $numero,
+                "code" => $code,
                 "prenom" => $prenom,
                 "nom" => $nom,
                 "dtns" => $dtns,
                 "lieuns" => $lieuns,
                 "adresse" => $adresse,
                 "photo" => $photo,
-                "pere" => $pere,
-                "profession_pere" => $professionPere,
-                "contact_pere" => $contactPere,
-                "mere" => $mere,
-                "profession_mere" => $professionMere,
-                "contact_mere" => $contactMere,
-                "repondant" => $repondant,
-                "profession_repondant" => $professionRepondant,
-                "contact_repondant" => $contactRepondant,
-                "categorie" => 1,
-                "niveau" => $niveau,
-                "classe" => $classe,
-                "annee" => $annee,
+                "contact" => $contact,
                 "id" => $id
             ]);
         }
@@ -170,7 +112,7 @@ class Model extends Database
 
     public function delete(int $id)
     {
-        $q = $this->getconnexion()->prepare("DELETE FROM inscription WHERE id = :id");
+        $q = $this->getconnexion()->prepare("DELETE FROM personnel WHERE id = :id");
         return $q->execute(['id' => $id]);
     }
 }
