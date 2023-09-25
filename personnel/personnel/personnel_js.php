@@ -29,6 +29,20 @@
             }
         });
 
+        // AFFICHAGE DES FONCTION 
+        $(".nouveau").click(function() {
+            $.ajax({
+                url: 'personnel_process.php',
+                type: 'post',
+                data: {
+                    slctFonction: 'slctFonction'
+                },
+                success: function(response) {
+                    $("#fonction").html(response)
+                }
+            })
+        })
+
         // Affichage de photo selectionnée
         const fileInputUpdate = document.getElementById('fileInputUpdate');
         const imagePreviewUpdate = document.getElementById('imagePreviewUpdate');
@@ -63,7 +77,7 @@
         // SELECTION DE l'id DE NIVEAU
         function slctIdNiveau() {
             $.ajax({
-                url: 'inscription_process.php',
+                url: 'personnel_process.php',
                 type: 'post',
                 data: {
                     slctIdNiveau: 'slctIdNiveau'
@@ -78,7 +92,7 @@
         function slctIdClasse() {
             let niveau = $(".optionNiveau").val()
             $.ajax({
-                url: 'inscription_process.php',
+                url: 'personnel_process.php',
                 type: 'post',
                 data: {
                     slctIdClasse: 'slctIdClasse',
@@ -97,7 +111,7 @@
             let classe = $(".idClasse").val();
 
             $.ajax({
-                url: 'inscription_process.php',
+                url: 'personnel_process.php',
                 type: 'post',
                 data: {
                     idNiveau: niveau,
@@ -117,7 +131,7 @@
             let niveau = $(".optionNiveau").val();
 
             $.ajax({
-                url: 'inscription_process.php',
+                url: 'personnel_process.php',
                 type: 'post',
                 data: {
                     idNiveau: niveau,
@@ -133,7 +147,7 @@
         // SELECTION DE NIVEAU
         function slctNiveau() {
             $.ajax({
-                url: 'inscription_process.php',
+                url: 'personnel_process.php',
                 type: 'post',
                 data: {
                     slctNiveau: 'slctNiveau'
@@ -148,7 +162,7 @@
         function slctClasse() {
             let niveau = $(".optionNiveau").val();
             $.ajax({
-                url: 'inscription_process.php',
+                url: 'personnel_process.php',
                 type: 'post',
                 data: {
                     slctClasse: 'slctClasse',
@@ -192,7 +206,7 @@
             if (numero != "" && prenom != "" && dtns != "" && lieuns != "" && adresse != "") {
                 var formData = new FormData(this);
                 $.ajax({
-                    url: 'inscription_process_create.php',
+                    url: 'personnel_process_create.php',
                     type: 'post',
                     data: formData,
                     contentType: false,
@@ -246,7 +260,7 @@
         $('body').on("click", ".infoBtn", function(e) {
             e.preventDefault();
             $.ajax({
-                url: "inscription_process.php",
+                url: "personnel_process.php",
                 type: "post",
                 data: {
                     informationId: this.dataset.id
@@ -289,7 +303,7 @@
             const imagePreviewUpdate = document.getElementById('imagePreviewUpdate');
             imagePreviewUpdate.src = '';
             $.ajax({
-                url: "inscription_process.php",
+                url: "personnel_process.php",
                 type: "post",
                 data: {
                     informationId: this.dataset.id
@@ -337,7 +351,7 @@
             if (numero != "" && prenom != "" && dtns != "" && lieuns != "" && adresse != "") {
                 var formData = new FormData(this);
                 $.ajax({
-                    url: 'inscription_process_update.php',
+                    url: 'personnel_process_update.php',
                     type: 'post',
                     data: formData,
                     contentType: false,
@@ -401,7 +415,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: 'inscription_process.php',
+                        url: 'personnel_process.php',
                         type: 'post',
                         data: {
                             deletionId: this.dataset.id

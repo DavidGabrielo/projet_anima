@@ -198,13 +198,31 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        if (response == "echec") {
+                        if (response == "aucun niveau") {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Veuillez inserer de NIVEAU avant d\'inscrire des étudiants ',
+                                showConfirmButton: true
+                            })
+                        } else if (response == "aucune classe") {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Veuillez inserer de CLASSE avant d\'inscrire des étudiants ',
+                                showConfirmButton: true
+                            })
+                        } else if (response == "aucune annee") {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Veuillez inserer de l\'année avant de parametrer de l\'inscription',
+                                showConfirmButton: true
+                            })
+                        } else if (response == "echec") {
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Ce numéro d\'inscription existe déjà dans cette classe',
                                 showConfirmButton: true
                             })
-                        } else {
+                        } else if (response == "oui" || response == "chemin") {
                             $("#createModal").modal('hide');
                             getInscription()
                             $('#imagePreview').hide();
@@ -230,6 +248,12 @@
                             $("#professionRepondant").val("");
                             $("#contactRepondant").val("");
                             $("#fileInput").val("");
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Le nombre d\'élèves maximum pour cette classe est : ' + response,
+                                showConfirmButton: true
+                            })
                         }
                     }
                 })

@@ -71,7 +71,13 @@
                         type: 'post',
                         data: formOrder.serialize() + '&action=create',
                         success: function(response) {
-                            if (response == "echec") {
+                            if (response == "aucun") {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Veuillez inserer de NIVEAU avant d\'insérer de CLASSE',
+                                    showConfirmButton: true
+                                })
+                            } else if (response == "echec") {
                                 Swal.fire({
                                     icon: 'warning',
                                     title: 'Cette classe existe déjà',

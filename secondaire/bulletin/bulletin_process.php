@@ -83,8 +83,13 @@ if (isset($_POST["slctClasse"])) {
 }
 
 $tabMoiSlct = $db->slctAnnee();
-$annee = $tabMoiSlct[0]["id"];
-$anneeComplete = $tabMoiSlct[0]["debut_annee"] . " - " . $tabMoiSlct[0]["fin_annee"];
+if (count($tabMoiSlct) > 0) {
+    $tabMoiSlct = $db->slctAnnee();
+    $annee = $tabMoiSlct[0]["id"];
+    $anneeComplete = $tabMoiSlct[0]["debut_annee"] . " - " . $tabMoiSlct[0]["fin_annee"];
+} else {
+    $annee = "";
+}
 
 if (isset($_POST["slctId"])) {
     if (isset($_POST["idNiveau"]) && isset($_POST["idClasse"])) {
@@ -251,26 +256,44 @@ if (isset($_POST["slctId"])) {
                     </tr>";
 
                 // MOYENNE
+                if ($sommeCoeff != 0) {
+                    $moyenne = $totalCoeff / $sommeCoeff;
+
+                    $moyenne_interro_1 = round($total_interro_1 / $sommeCoeff, 2);
+                    $moyenne_exam_1 = round($total_exam_1 / $sommeCoeff, 2);
+
+                    $moyenne_interro_2 = round($total_interro_2 / $sommeCoeff, 2);
+                    $moyenne_exam_2 = round($total_exam_2 / $sommeCoeff, 2);
+
+                    $moyenne_interro_3 = round($total_interro_3 / $sommeCoeff, 2);
+                    $moyenne_exam_3 = round($total_exam_3 / $sommeCoeff, 2);
+                } else {
+                    $moyenne = 0;
+
+                    $moyenne_interro_1 = 0;
+                    $moyenne_exam_1 = 0;
+
+                    $moyenne_interro_2 = 0;
+                    $moyenne_exam_2 = 0;
+
+                    $moyenne_interro_3 = 0;
+                    $moyenne_exam_3 = 0;
+                }
+
                 $output .= "<tr>
                             <th>Moyenne</th>
-                            <th>{$sommeCoeff}</th>";
+                            <th>{$moyenne}</th>";
 
-                $moyenne_interro_1 = round($total_interro_1 / $sommeCoeff, 2);
-                $moyenne_exam_1 = round($total_exam_1 / $sommeCoeff, 2);
                 ($total_interro_1 != 0) ? $output .= "<th>{$moyenne_interro_1}</th>" : $output .= "<th></th>";
                 ($total_exam_1 != 0) ? $output .= "<th>{$moyenne_exam_1}</th>" : $output .= "<th></th>";
                 $output .= "<th></th>
                         <th></th>";
 
-                $moyenne_interro_2 = round($total_interro_2 / $sommeCoeff, 2);
-                $moyenne_exam_2 = round($total_exam_2 / $sommeCoeff, 2);
                 ($total_interro_2 != 0) ? $output .= "<th>{$moyenne_interro_2}</th>" : $output .= "<th></th>";
                 ($total_exam_2 != 0) ? $output .= "<th>{$moyenne_exam_2}</th>" : $output .= "<th></th>";
                 $output .= "<th></th>
                         <th></th>";
 
-                $moyenne_interro_3 = round($total_interro_3 / $sommeCoeff, 2);
-                $moyenne_exam_3 = round($total_exam_3 / $sommeCoeff, 2);
                 ($total_interro_3 != 0) ? $output .= "<th>{$moyenne_interro_3}</th>" : $output .= "<th></th>";
                 ($total_exam_3 != 0) ? $output .= "<th>{$moyenne_exam_3}</th>" : $output .= "<th></th>";
                 $output .= "<th></th>
@@ -513,26 +536,44 @@ if (isset($_POST["slctIdClasseAvecNiveau"])) {
                     </tr>";
 
             // MOYENNE
+            if ($sommeCoeff != 0) {
+                $moyenne = $totalCoeff / $sommeCoeff;
+
+                $moyenne_interro_1 = round($total_interro_1 / $sommeCoeff, 2);
+                $moyenne_exam_1 = round($total_exam_1 / $sommeCoeff, 2);
+
+                $moyenne_interro_2 = round($total_interro_2 / $sommeCoeff, 2);
+                $moyenne_exam_2 = round($total_exam_2 / $sommeCoeff, 2);
+
+                $moyenne_interro_3 = round($total_interro_3 / $sommeCoeff, 2);
+                $moyenne_exam_3 = round($total_exam_3 / $sommeCoeff, 2);
+            } else {
+                $moyenne = 0;
+
+                $moyenne_interro_1 = 0;
+                $moyenne_exam_1 = 0;
+
+                $moyenne_interro_2 = 0;
+                $moyenne_exam_2 = 0;
+
+                $moyenne_interro_3 = 0;
+                $moyenne_exam_3 = 0;
+            }
+
             $output .= "<tr>
                             <th>Moyenne</th>
-                            <th>{$sommeCoeff}</th>";
+                            <th>{$moyenne}</th>";
 
-            $moyenne_interro_1 = round($total_interro_1 / $sommeCoeff, 2);
-            $moyenne_exam_1 = round($total_exam_1 / $sommeCoeff, 2);
             ($total_interro_1 != 0) ? $output .= "<th>{$moyenne_interro_1}</th>" : $output .= "<th></th>";
             ($total_exam_1 != 0) ? $output .= "<th>{$moyenne_exam_1}</th>" : $output .= "<th></th>";
             $output .= "<th></th>
                         <th></th>";
 
-            $moyenne_interro_2 = round($total_interro_2 / $sommeCoeff, 2);
-            $moyenne_exam_2 = round($total_exam_2 / $sommeCoeff, 2);
             ($total_interro_2 != 0) ? $output .= "<th>{$moyenne_interro_2}</th>" : $output .= "<th></th>";
             ($total_exam_2 != 0) ? $output .= "<th>{$moyenne_exam_2}</th>" : $output .= "<th></th>";
             $output .= "<th></th>
                         <th></th>";
 
-            $moyenne_interro_3 = round($total_interro_3 / $sommeCoeff, 2);
-            $moyenne_exam_3 = round($total_exam_3 / $sommeCoeff, 2);
             ($total_interro_3 != 0) ? $output .= "<th>{$moyenne_interro_3}</th>" : $output .= "<th></th>";
             ($total_exam_3 != 0) ? $output .= "<th>{$moyenne_exam_3}</th>" : $output .= "<th></th>";
             $output .= "<th></th>

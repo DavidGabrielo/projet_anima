@@ -24,15 +24,20 @@ class Model extends Database
         if ($nbRedondance > 0) {
             return "echec";
         } else {
-            $q = $this->getconnexion()->prepare("INSERT INTO classe(classe, niveau, nb_eleve_max, categorie) 
+            $tabNiveau = $this->slctNiveau();
+            if (count($tabNiveau) > 0) {
+                $q = $this->getconnexion()->prepare("INSERT INTO classe(classe, niveau, nb_eleve_max, categorie) 
         VALUES(:classe, :niveau, :nb, :categorie)");
 
-            return $q->execute([
-                "classe" => $classe,
-                "niveau" => $niveau,
-                "nb" => $nb,
-                "categorie" => 2
-            ]);
+                return $q->execute([
+                    "classe" => $classe,
+                    "niveau" => $niveau,
+                    "nb" => $nb,
+                    "categorie" => 2
+                ]);
+            } else {
+                return "aucun";
+            }
         }
     }
 

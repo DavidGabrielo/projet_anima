@@ -27,7 +27,15 @@ if ($retour == 1) {
         } else {
             echo "non";
         }
+    } else {
+        echo "chemin";
     }
+} elseif ($retour == "aucun niveau") {
+    echo "aucun niveau";
+} else if ($retour == "aucune classe") {
+    echo "aucune classe";
+} elseif ($retour == "aucune annee") {
+    echo "aucune annee";
 } else {
-    echo "echec";
+    echo $retour;
 }

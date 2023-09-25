@@ -19,15 +19,19 @@ class Model extends Database
         if ($nbRedondance > 0) {
             return "echec";
         } else {
-            $q = $this->getconnexion()->prepare("INSERT INTO matieres(matieres, coeff, niveau, categorie) 
+            $tabNiveau = $this->slctNiveau();
+            if (count($tabNiveau) > 0) {
+                $q = $this->getconnexion()->prepare("INSERT INTO matieres(matieres, coeff, niveau, categorie) 
         VALUES(:matiere, :coeff, :niveau, :categorie)");
-
-            return $q->execute([
-                "matiere" => $matiere,
-                "coeff" => $coeff,
-                "niveau" => $niveau,
-                "categorie" => 1
-            ]);
+                return $q->execute([
+                    "matiere" => $matiere,
+                    "coeff" => $coeff,
+                    "niveau" => $niveau,
+                    "categorie" => 1
+                ]);
+            } else {
+                return "aucun";
+            }
         }
     }
 

@@ -30,7 +30,7 @@
             let finAnnee = $("#finAnnee").val()
 
             if (formOrder[0].checkValidity()) {
-                if (debutAnnee != "" && finAnnee != "") {
+                if (debutAnnee != "" && finAnnee != "" && nbMois != "") {
                     let reste = finAnnee - debutAnnee;
                     if (reste == 1) {
                         $.ajax({
@@ -68,7 +68,7 @@
                 } else {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Tous ces champs champs sont obligatoires',
+                        title: 'Tous les champs doivent être remplis',
                         showConfirmButton: true
                     });
                 }

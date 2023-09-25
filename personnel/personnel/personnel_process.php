@@ -1,6 +1,19 @@
 <?php
-require_once "inscription_model.php";
+require_once "personnel_model.php";
 $db = new Model();
+
+if (isset($_POST["slctFonction"])) {
+    $tabFonction = $db->slctFonction();
+    $output = "";
+    if (count($tabFonction) > 0) {
+        for ($i = 0; $i < count($tabFonction); $i++) {
+            $output .= "<option>{$tabFonction[$i]["fonction"]}</option>";
+        }
+        echo $output;
+    } else {
+        echo "";
+    }
+}
 
 if (isset($_POST["slctIdNiveau"])) {
     $tabNiveau = $db->slctNiveau();

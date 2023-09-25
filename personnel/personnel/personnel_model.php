@@ -2,6 +2,11 @@
 require_once "../../model/model.php";
 class Model extends Database
 {
+    public function slctFonction()
+    {
+        return $this->getconnexion()->query("SELECT * FROM fonction ORDER BY id")->fetchAll();
+    }
+
     public function slctNiveau()
     {
         return $this->getconnexion()->query("SELECT * FROM niveau WHERE categorie = 1 ORDER BY id")->fetchAll();

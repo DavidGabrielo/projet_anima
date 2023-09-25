@@ -83,7 +83,11 @@ if (isset($_POST["slctClasse"])) {
 }
 
 $tabMoiSlct = $db->slctAnnee();
-$annee = $tabMoiSlct[0]["id"];
+if (count($tabMoiSlct) > 0) {
+    $annee = $tabMoiSlct[0]["id"];
+} else {
+    $annee = "";
+}
 
 if (isset($_POST["slctId"])) {
     if (isset($_POST["idNiveau"]) && isset($_POST["idClasse"])) {

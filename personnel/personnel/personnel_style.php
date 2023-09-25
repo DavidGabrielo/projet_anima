@@ -7,7 +7,9 @@
         margin-top: 10px;
     }
 
-
+    #fonction {
+        padding: 10px 30px;
+    }
 
     .photoSlct {
         width: 256px;

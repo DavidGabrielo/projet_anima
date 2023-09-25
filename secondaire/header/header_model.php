@@ -3,7 +3,7 @@ require_once "../../model/model.php";
 class Model extends Database
 {
     // PARAMETRE DE L'ANNEE
-    public function createNouvelleAnnee(int $debut, int $fin, string $debutMois, string $finMois)
+    public function createNouvelleAnnee(int $debut, int $fin, string $debutMois, string $nbMois)
     {
         // VERIFIER SI L'annee EXISTE DEJA
         $slctAnnee = $this->getconnexion()->prepare("SELECT * FROM annee_scolaire WHERE debut_annee = :debut AND fin_annee = :fin");
@@ -16,15 +16,15 @@ class Model extends Database
             echo 0;
         } else {
             $this->getconnexion()->query("UPDATE annee_scolaire SET activite = 0");
-            $q = $this->getconnexion()->prepare("INSERT INTO annee_scolaire(debut_annee, fin_annee, activite, mois_debut, mois_fin) 
-        VALUES(:debut_annee, :fin_annee, :activite, :mois_debut, :mois_fin)");
+            $q = $this->getconnexion()->prepare("INSERT INTO annee_scolaire(debut_annee, fin_annee, activite, mois_debut, nb_mois) 
+        VALUES(:debut_annee, :fin_annee, :activite, :mois_debut, :nb_mois)");
 
             return $q->execute([
                 "debut_annee" => $debut,
                 "fin_annee" => $fin,
                 "activite" => 1,
                 "mois_debut" => $debutMois,
-                "mois_fin" => $finMois
+                "nb_mois" => $nbMois
             ]);
         }
     }

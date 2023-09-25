@@ -26,6 +26,16 @@ class Model extends Database
         }
     }
 
+    public function slctNbClasse($classe)
+    {
+        $slct = $this->getconnexion()->prepare("SELECT * FROM classe WHERE id = :id");
+        $slct->execute([
+            "id" => $classe
+        ]);
+        $tabClasse = $slct->fetchAll();
+        return $tabClasse[0]["nb_eleve_max"];
+    }
+
     public function create(string $numero, string $prenom, string $nom, string $dtns, string $lieuns, string $adresse, string $photo, string $pere, string $professionPere, string $contactPere, string $mere, string $professionMere, string $contactMere, string $repondant, string $professionRepondant, string $contactRepondant, int $niveau, int $classe, int $annee)
     {
         $slctRedondance = $this->getconnexion()->prepare("SELECT * FROM inscription WHERE numero = :numero AND categorie = 1 AND niveau = :niveau AND classe = :classe AND annee = :annee");
@@ -41,31 +51,53 @@ class Model extends Database
         if ($nbRedondance > 0) {
             return "echec";
         } else {
-            $insert = $this->getconnexion()->prepare("INSERT INTO inscription(numero, prenom, nom, dtns, lieuns, adresse, photo, pere, profession_pere, contact_pere, mere, profession_mere, contact_mere, repondant, profession_repondant, contact_repondant, categorie, niveau, classe, annee) 
-            VALUES(:numero, :prenom, :nom, :dtns, :lieuns, :adresse, :photo, :pere, :profession_pere, :contact_pere, :mere, :profession_mere, :contact_mere, :repondant, :profession_repondant, :contact_repondant, :categorie, :niveau, :classe, :annee)");
+            $tabNiveau = $this->slctNiveau();
+            if (count($tabNiveau) > 0) {
+                $tabClasse = $this->slctClasse($niveau);
+                if (count($tabClasse) > 0) {
+                    if ($this->slctAnnee() == "aucune annee") {
+                        return "aucune annee";
+                    } else {
+                        $nbElevesMax = $this->slctNbClasse($classe);
+                        $tabInscription = $this->lectureAvecId($niveau, $classe);
+                        $nbInscrits = count($tabInscription);
 
-            return $insert->execute([
-                "numero" => $numero,
-                "prenom" => $prenom,
-                "nom" => $nom,
-                "dtns" => $dtns,
-                "lieuns" => $lieuns,
-                "adresse" => $adresse,
-                "photo" => $photo,
-                "pere" => $pere,
-                "profession_pere" => $professionPere,
-                "contact_pere" => $contactPere,
-                "mere" => $mere,
-                "profession_mere" => $professionMere,
-                "contact_mere" => $contactMere,
-                "repondant" => $repondant,
-                "profession_repondant" => $professionRepondant,
-                "contact_repondant" => $contactRepondant,
-                "categorie" => 1,
-                "niveau" => $niveau,
-                "classe" => $classe,
-                "annee" => $annee
-            ]);
+                        if ($nbInscrits < $nbElevesMax) {
+                            $insert = $this->getconnexion()->prepare("INSERT INTO inscription(numero, prenom, nom, dtns, lieuns, adresse, photo, pere, profession_pere, contact_pere, mere, profession_mere, contact_mere, repondant, profession_repondant, contact_repondant, categorie, niveau, classe, annee) 
+                        VALUES(:numero, :prenom, :nom, :dtns, :lieuns, :adresse, :photo, :pere, :profession_pere, :contact_pere, :mere, :profession_mere, :contact_mere, :repondant, :profession_repondant, :contact_repondant, :categorie, :niveau, :classe, :annee)");
+
+                            return $insert->execute([
+                                "numero" => $numero,
+                                "prenom" => $prenom,
+                                "nom" => $nom,
+                                "dtns" => $dtns,
+                                "lieuns" => $lieuns,
+                                "adresse" => $adresse,
+                                "photo" => $photo,
+                                "pere" => $pere,
+                                "profession_pere" => $professionPere,
+                                "contact_pere" => $contactPere,
+                                "mere" => $mere,
+                                "profession_mere" => $professionMere,
+                                "contact_mere" => $contactMere,
+                                "repondant" => $repondant,
+                                "profession_repondant" => $professionRepondant,
+                                "contact_repondant" => $contactRepondant,
+                                "categorie" => 1,
+                                "niveau" => $niveau,
+                                "classe" => $classe,
+                                "annee" => $annee
+                            ]);
+                        } else {
+                            return $nbElevesMax;
+                        }
+                    }
+                } else {
+                    return "aucune classe";
+                }
+            } else {
+                return "aucun niveau";
+            }
         }
     }
 
@@ -83,9 +115,10 @@ class Model extends Database
 
             // SELECTION DE L'id DE classe
             $tabClasse = $this->slctClasse($idNiveau);
-            $idClasse = $tabClasse[0]["id"];
-
-            return $this->getconnexion()->query("SELECT * FROM inscription WHERE categorie = 1 AND niveau = $idNiveau AND classe = $idClasse ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
+            if (count($tabClasse) > 0) {
+                $idClasse = $tabClasse[0]["id"];
+                return $this->getconnexion()->query("SELECT * FROM inscription WHERE categorie = 1 AND niveau = $idNiveau AND classe = $idClasse ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
+            }
         }
     }
 

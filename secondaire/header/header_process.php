@@ -5,7 +5,7 @@ $db = new Model();
 // ENREGISTREMENT D'UNE NOUVELLE ANNEE
 if (isset($_POST['action']) && $_POST['action'] == 'nouvelleAnnee') {
     extract($_POST);
-    $db->createNouvelleAnnee($debutAnnee, $finAnnee, $debutMois, $finMois);
+    $db->createNouvelleAnnee($debutAnnee, $finAnnee, $debutMois, $nbMois);
 }
 
 // Info pour detail de facture

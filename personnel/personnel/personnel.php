@@ -16,12 +16,12 @@
     <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet" />
-    <?php include("../header/header_primaire_style.php"); ?>
-    <?php include("inscription_style.php"); ?>
+    <?php include("../header/headerPers_style.php"); ?>
+    <?php include("personnel_style.php"); ?>
 </head>
 
 <body>
-    <?php include("../header/header_primaire.php"); ?>
+    <?php include("../header/headerPers.php"); ?>
     <section class="container py-2">
         <div class="row">
             <div class="col-lg-8 col-md mb-2 mx-auto">
@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-6">
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-folder-plus"></i> Nouveau</button>
+                    <button class="btn btn-primary btn-sm me-3 nouveau" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-folder-plus"></i> Nouveau</button>
                     <a href="" class="btn btn-success btn-sm" id="export"><i class="fas fa-table"></i> Exporter</a>
                 </div>
             </div>
@@ -68,8 +68,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="numero" name="numero">
-                                    <label for="numero">Numéro</label>
+                                    <input type="text" class="form-control" id="code" name="code">
+                                    <label for="code">Code</label>
                                 </div>
                                 <div class="form-floating mb-1">
                                     <input type="text" class="form-control" id="prenom" name="prenom">
@@ -103,44 +103,20 @@
                         <div class="form-floating mb-1 row">
                             <div class="col">
                                 <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="pere" name="pere">
-                                    <label for="pere">Père</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="professionPere" name="professionPere">
-                                    <label for="professionPere">Proféssion</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="contactPere" name="contactPere">
-                                    <label for="contactPere">Contact</label>
+                                    <input type="text" class="form-control" id="contact" name="contact">
+                                    <label for="contact">Contact</label>
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="mere" name="mere">
-                                    <label for="mere">Mère</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="professionMere" name="professionMere">
-                                    <label for="professionMere">Proféssion</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="contactMere" name="contactMere">
-                                    <label for="contactMere">Contact</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="repondant" name="repondant">
-                                    <label for="repondant">Répondant</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="professionRepondant" name="professionRepondant">
-                                    <label for="professionRepondant">Proféssion</label>
-                                </div>
-                                <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="contactRepondant" name="contactRepondant">
-                                    <label for="contactRepondant">Contact</label>
+                                <div class="mb-1 pt-2">
+                                    <label for="">Fonction : </label>
+                                    <select name="fonction" id="fonction">
+                                        <option value="">Rediger</option>
+                                        <option value="">Rediger</option>
+                                        <option value="">Rediger</option>
+                                        <option value="">Rediger</option>
+                                        <option value="">Rediger</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -171,8 +147,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-1">
-                                    <input type="text" class="form-control" id="numeroUpdate" name="numeroUpdate">
-                                    <label for="numeroUpdate">Numéro</label>
+                                    <input type="text" class="form-control" id="codeUpdate" name="codeUpdate">
+                                    <label for="codeUpdate">Code</label>
                                 </div>
                                 <div class="form-floating mb-1">
                                     <input type="text" class="form-control" id="prenomUpdate" name="prenomUpdate">
@@ -272,7 +248,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="mb-1">
-                                    <label for="">Numéro : </label> <span id="numeroSlct"></span>
+                                    <label for="">Code : </label> <span id="codeSlct"></span>
                                 </div>
                                 <div class="mb-1">
                                     <label for="">Prénom : </label> <span id="prenomSlct"></span>
@@ -341,7 +317,7 @@
         </div>
     </div>
 
-    <?php include("inscription_js.php"); ?>
+    <?php include("personnel_js.php"); ?>
 </body>
 
 </html>

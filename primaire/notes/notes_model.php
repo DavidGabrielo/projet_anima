@@ -41,9 +41,10 @@ class Model extends Database
 
             // SELECTION DE L'id DE classe
             $tabClasse = $this->slctClasse($idNiveau);
-            $idClasse = $tabClasse[0]["id"];
-
-            return $this->getconnexion()->query("SELECT * FROM inscription WHERE categorie = 1 AND niveau = $idNiveau AND classe = $idClasse ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
+            if (count($tabClasse) > 0) {
+                $idClasse = $tabClasse[0]["id"];
+                return $this->getconnexion()->query("SELECT * FROM inscription WHERE categorie = 1 AND niveau = $idNiveau AND classe = $idClasse ORDER BY id")->fetchAll(PDO::FETCH_OBJ);
+            }
         }
     }
 
