@@ -136,7 +136,7 @@ session_start();
         <h3>Sign in here</h3>
         <form method="post">
             <div class="inputBox">
-                <input id="uname" type="text" name="prenom" placeholder="Username">
+                <input id="uname" type="text" name="prenom" placeholder="Username" autofocus>
                 <input id="pass" type="password" name="mot_passe" placeholder="Password">
             </div>
             <input type="submit" name="bouton" value="Login">

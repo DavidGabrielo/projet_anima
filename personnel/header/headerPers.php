@@ -12,8 +12,8 @@
                     ?>
                         <li class="nav-item"><a href="#" class="nav-link text-warning">Fonction</a></li>
                         <li class="nav-item"><a href="../personnel/personnel.php?page=personnel" class="nav-link">Personnel</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Payement</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Impression</a></li>
+                        <li class="nav-item"><a href="../payement/payemennt.php?page=payement" class="nav-link">Payement</a></li>
+                        <li class="nav-item"><a href="../impression/impression.php?page=impression" class=" nav-link">Impression</a></li>
                         <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                     } else {
@@ -21,31 +21,31 @@
                         ?>
                             <li class="nav-item"><a href="#" class="nav-link text-warning">Fonction</a></li>
                             <li class="nav-item"><a href="../personnel/personnel.php?page=personnel" class="nav-link">Personnel</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Payement</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Impression</a></li>
+                            <li class="nav-item"><a href="../payement/payemennt.php?page=payement" class="nav-link">Payement</a></li>
+                            <li class="nav-item"><a href="../impression/impression.php?page=impression" class="nav-link">Impression</a></li>
                             <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
                         } elseif ($_GET["page"] == "personnel") {
                         ?>
-                            <li class="nav-item"><a href="../fonction/fonction.php" class="nav-link">Fonction</a></li>
-                            <li class="nav-item"><a href="../personnel/personnel.php?page=personnel" class="nav-link text-warning">Personnel</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Payement</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Impression</a></li>
+                            <li class="nav-item"><a href="../fonction/fonction.php?page=fonction" class="nav-link">Fonction</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link text-warning">Personnel</a></li>
+                            <li class="nav-item"><a href="../payement/payemennt.php?page=payement" class="nav-link">Payement</a></li>
+                            <li class="nav-item"><a href="../impression/impression.php?page=impression" class="nav-link">Impression</a></li>
                             <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
-                        } elseif ($_GET["page"] == "matières") {
+                        } elseif ($_GET["page"] == "payement") {
                         ?>
-                            <li class="nav-item"><a href="../fonction/fonction.php" class="nav-link">Fonction</a></li>
+                            <li class="nav-item"><a href="../fonction/fonction.php?page=fonction" class="nav-link">Fonction</a></li>
                             <li class="nav-item"><a href="../personnel/personnel.php?page=personnel" class="nav-link">Personnel</a></li>
                             <li class="nav-item"><a href="#" class="nav-link text-warning">Payement</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Impression</a></li>
+                            <li class="nav-item"><a href="../impression/impression.php?page=impression" class="nav-link">Impression</a></li>
                             <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                         <?php
-                        } elseif ($_GET["page"] == "inscription") {
+                        } elseif ($_GET["page"] == "impression") {
                         ?>
-                            <li class="nav-item"><a href="../fonction/fonction.php" class="nav-link">Fonction</a></li>
+                            <li class="nav-item"><a href="../fonction/fonction.php?page=fonction" class="nav-link">Fonction</a></li>
                             <li class="nav-item"><a href="../personnel/personnel.php?page=personnel" class="nav-link">Personnel</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Payement</a></li>
+                            <li class="nav-item"><a href="../payement/payemennt.php?page=payement" class="nav-link">Payement</a></li>
                             <li class="nav-item"><a href="#" class="nav-link text-warning">Impression</a></li>
                             <li class="nav-item"><a href="../../accueil/accueil.php" class="nav-link">Quitter</a></li>
                     <?php

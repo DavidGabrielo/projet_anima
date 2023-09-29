@@ -1,6 +1,11 @@
 <?php
 require_once "niveau_model.php";
 $db = new Model();
+
+if (isset($_POST["supr"])) {
+    echo $db->slctAnnee();
+}
+
 if (isset($_POST['action']) && $_POST['action'] == 'create') {
     extract($_POST);
     echo $db->create($niveau, $abr);

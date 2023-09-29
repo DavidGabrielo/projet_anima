@@ -89,6 +89,7 @@ if (count($tabMoiSlct) > 0) {
     $anneeComplete = $tabMoiSlct[0]["debut_annee"] . " - " . $tabMoiSlct[0]["fin_annee"];
 } else {
     $annee = "";
+    $anneeComplete = "";
 }
 
 if (isset($_POST["slctId"])) {

@@ -2,6 +2,17 @@
 require_once "../../model/model.php";
 class Model extends Database
 {
+    public function slctAnnee()
+    {
+        $slctAnnee = $this->getconnexion()->prepare("SELECT * FROM annee_scolaire WHERE activite = 1");
+        $slctAnnee->execute();
+        $tabAnnee = $slctAnnee->fetchAll();
+        if (count($tabAnnee) > 0) {
+        } else {
+            return $this->getconnexion()->query("DELETE FROM inscription WHERE categorie = 2");
+        }
+    }
+
     public function create(string $niveau, string $abr)
     {
         $slctRedondance = $this->getconnexion()->prepare("SELECT * FROM niveau WHERE niveau = :niveau OR abr = :abr");

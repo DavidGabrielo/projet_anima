@@ -23,6 +23,8 @@ class Model extends Database
         $tabAnnee = $slctAnnee->fetchAll();
         if (count($tabAnnee) > 0) {
             return $tabAnnee[0]["id"];
+        } else {
+            return "aucune annee";
         }
     }
 

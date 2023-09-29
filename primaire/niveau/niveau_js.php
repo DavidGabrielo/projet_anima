@@ -2,6 +2,18 @@
     $(function() {
         $('table').DataTable();
 
+        function suprInscription() {
+            $.ajax({
+                url: 'niveau_process.php',
+                type: 'post',
+                data: {
+                    supr: 'supr'
+                },
+                success: function() {}
+            })
+        }
+        suprInscription()
+
         $('#create').on('click', function(e) {
             let formOrder = $("#formOrder")
             let niveau = $("#niveau").val()

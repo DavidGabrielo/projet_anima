@@ -22,9 +22,6 @@ class Model extends Database
         $slctAnnee->execute();
         $tabAnnee = $slctAnnee->fetchAll();
         return $tabAnnee;
-        // if (count($tabAnnee) > 0) {
-        //     return $tabAnnee[0]["id"];
-        // }
     }
 
     public function lectureAvecId(int $idNiveau, int $idClasse)
