@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 22 sep. 2023 à 00:11
+-- Généré le :  sam. 30 sep. 2023 à 11:40
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -66,6 +66,20 @@ CREATE TABLE IF NOT EXISTS `ecolages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `etudiant` int(250) NOT NULL,
   `mois` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fonction`
+--
+
+DROP TABLE IF EXISTS `fonction`;
+CREATE TABLE IF NOT EXISTS `fonction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fonction` varchar(250) NOT NULL,
+  `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -159,6 +173,56 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `niveau` int(11) NOT NULL,
   `classe` int(11) NOT NULL,
   `annee` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `payement`
+--
+
+DROP TABLE IF EXISTS `payement`;
+CREATE TABLE IF NOT EXISTS `payement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `annee` int(11) NOT NULL,
+  `mois` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `personnel`
+--
+
+DROP TABLE IF EXISTS `personnel`;
+CREATE TABLE IF NOT EXISTS `personnel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) NOT NULL,
+  `prenom` varchar(250) NOT NULL,
+  `nom` varchar(250) NOT NULL,
+  `dtns` varchar(20) NOT NULL,
+  `lieuns` varchar(150) NOT NULL,
+  `adresse` varchar(150) NOT NULL,
+  `photo` varchar(250) NOT NULL,
+  `contact` varchar(50) NOT NULL,
+  `fonction` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `singin`
+--
+
+DROP TABLE IF EXISTS `singin`;
+CREATE TABLE IF NOT EXISTS `singin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prenom` varchar(255) NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `passe` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;

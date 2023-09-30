@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +7,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="js/jquery-3.6.0.min.js"></script>
     <title>Login</title>
     <style>
         body {
@@ -112,20 +111,12 @@ session_start();
         }
 
         .loginBox a {
-            color: #262626;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 14px;
             font-weight: bold;
             text-decoration: none;
             text-align: center;
             display: block
-        }
-
-        a:hover {
-            color: #00ffff
-        }
-
-        p {
-            color: #0000ff
         }
     </style>
 </head>
@@ -139,42 +130,16 @@ session_start();
                 <input id="uname" type="text" name="prenom" placeholder="Username" autofocus>
                 <input id="pass" type="password" name="mot_passe" placeholder="Password">
             </div>
-            <input type="submit" name="bouton" value="Login">
+            <input type="submit" name="bouton" value="Se connecter">
         </form>
-        <!-- <a href="#">Forget Password<br> </a>
+        <!-- <a href="#">Forget Password<br> </a> -->
         <div class="text-center">
-            <p style="color: #59238F;">Sign-Up</p>
-        </div> -->
+            <p><a href="singin/singin.php">Créer un compte</a></p>
+        </div>
         <div class="text-center erreur text-danger" id="erreur"></div>
     </div>
     <?php
-    if (isset($_POST["bouton"])) {
-        if (!empty($_POST["prenom"]) && !empty($_POST["mot_passe"])) {
-            if ($_POST["mot_passe"] == "logiciel_anima") {
-                $_SESSION["prenom"] = $_POST["prenom"];
-                // header("accueil/accueil.php");
-    ?>
-                <script>
-                    window.open("accueil/accueil.php", "_self");
-                </script>
-            <?php
-            } else {
-            ?>
-                <script>
-                    let erreur = document.getElementById("erreur");
-                    erreur.innerHTML = "Mot de passe incorrect";
-                </script>
-            <?php
-            }
-        } else {
-            ?>
-            <script>
-                let erreur = document.getElementById("erreur");
-                erreur.innerHTML = "Veuillez tout remplir";
-            </script>
-    <?php
-        }
-    }
+    include("login/code_login.php");
     ?>
 
     <!-- <script src="js/jquery-3.6.0.min.js"></script> -->

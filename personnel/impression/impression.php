@@ -25,18 +25,15 @@ if (isset($_SESSION["prenom"])) {
     <section class="container py-2">
         <div class="row">
             <div class="col-lg-10 col-md mb-2 mx-auto">
-                <h1 class="fs-4 text-center lead text-primary">PARAMETRE D'IMPRESSION POUR LA FONCTION : <span class="text-danger" id="fonctionSlct"></span></h1>
+                <h1 class="fs-4 text-center lead text-primary">PARAMETRE D'IMPRESSION DU MOIS DE : <span class="text-danger" id="moisSlct"></span></h1>
             </div>
         </div>
         <div class="dropdown-divider border-warning"></div>
-        <div class="row">
-            <div class="row">
-                <div class="table-responsive" id="orderTable">
-                    <h3 class="text-success text-center">Chargement des étudiants...</h3>
-                </div>
-            </div>
-        </div>
     </section>
+
+    <div id="orderTable">
+        <h3 class="text-success text-center">Chargement de salaire...</h3>
+    </div>
 
     <?php include("impression_js.php"); ?>
 </body>

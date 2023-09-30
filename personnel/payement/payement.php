@@ -16,7 +16,11 @@ if (isset($_SESSION["prenom"])) {
     <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet" />
-    <?php include("../header/headerPers_style.php"); ?>
+    <?php
+    include("../header/headerPers_style.php");
+    include("payement_style.php");
+    ?>
+
 </head>
 
 <body>
@@ -24,25 +28,13 @@ if (isset($_SESSION["prenom"])) {
     <section class="container py-2">
         <div class="row">
             <div class="col-lg-8 col-md mb-2 mx-auto">
-                <h1 class="fs-4 text-center lead text-primary">PARAMETRES DE fonction</h1>
-            </div>
-        </div>
-        <div class="dropdown-divider border-warning"></div>
-        <div class="row">
-            <div class="col-md-6">
-                <h5 class="fw-bold mb-0">Liste des fonctions</h5>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-folder-plus"></i> Nouveau</button>
-                    <a href="" class="btn btn-success btn-sm" id="export"><i class="fas fa-table"></i> Exporter</a>
-                </div>
+                <h1 class="fs-4 text-center lead text-primary">Vous pouvez cliquer sur "Activer" si le salaire mensuel des employés est disponible</h1>
             </div>
         </div>
         <div class="dropdown-divider border-warning"></div>
         <div class="row">
             <div class="table-responsive" id="orderTable">
-                <h3 class="text-success text-center">Chargement des factures...</h3>
+                <h3 class="text-success text-center">Chargement des payements...</h3>
             </div>
         </div>
     </section>

@@ -17,7 +17,7 @@ class Model extends Database
         $nbRedondance = count($tabPersonnel);
 
         if ($nbRedondance > 0) {
-            return "echec";
+            return "redondance";
         } else {
             $insert = $this->getconnexion()->prepare("INSERT INTO personnel(code, prenom, nom, dtns, lieuns, adresse, photo, contact, fonction) 
             VALUES(:code, :prenom, :nom, :dtns, :lieuns, :adresse, :photo, :contact, :fonction)");

@@ -166,13 +166,7 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        if (response == "echec") {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Ce numéro de code existe déjà',
-                                showConfirmButton: true
-                            })
-                        } else {
+                        if (response == "oui" || response == "aucun chemin") {
                             $("#createModal").modal('hide');
                             getPersonnel()
                             $('#imagePreview').hide();
@@ -190,6 +184,18 @@
                             $("#adresse").val("");
                             $("#contact").val("");
                             $("#fileInput").val("");
+                        } else if (response == "redondance") {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Ce numéro de code existe déjà',
+                                showConfirmButton: true
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: response,
+                                showConfirmButton: true
+                            })
                         }
                     }
                 })

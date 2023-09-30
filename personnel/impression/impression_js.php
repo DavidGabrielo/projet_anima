@@ -16,61 +16,40 @@
         slctIdFonction();
 
         function getPersonnel() {
-            let fonction = $(".optionFonction").val();
+            let mois = $(".optionMois").val();
 
             $.ajax({
                 url: 'impression_process.php',
                 type: 'post',
                 data: {
-                    idFonction: fonction,
+                    mois: mois,
                     slctId: "oui"
                 },
                 success: function(response) {
                     $('#orderTable').html(response);
-                    $('table').DataTable();
                 }
             })
         }
         getPersonnel()
 
-        function getPersonnelAvecFonction() {
-            let fonction = $(".optionFonction").val();
-
-            $.ajax({
-                url: 'impression_process.php',
-                type: 'post',
-                data: {
-                    idFonction: fonction,
-                    slctIdClasseAvecFonction: "oui"
-                },
-                success: function(response) {
-                    $('#orderTable').html(response);
-                    $('table').DataTable();
-                }
-            })
-        }
-
         // SELECTION DE NIVEAU
-        function slctFonction() {
+        function slctMois() {
             $.ajax({
                 url: 'impression_process.php',
                 type: 'post',
                 data: {
-                    slctFonction: 'slctFonction'
+                    slctMois: 'slctMois'
                 },
                 success: function(response) {
-                    // alert(response)
-                    $('#fonctionSlct').html(response);
+                    $('#moisSlct').html(response);
                 }
             })
         }
-        slctFonction();
+        slctMois();
 
         // CHANGEMENT DE NIVEAU
-        $(document).on("change", ".optionFonction", function() {
-            // let idFonction = $(this).val()
-            // alert(idFonction)
-            getPersonnelAvecFonction();
+        $(document).on("change", ".optionMois", function() {
+            getPersonnel()
         })
     })
 </script>
